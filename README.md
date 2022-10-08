@@ -123,6 +123,7 @@ Please don't introduce swear words, though: we will not excuse your French.
 - Indonesian: [karat](https://github.com/annurdien/karat)
 - Lithuanian: [rūdys](https://github.com/TruncatedDinosour/rudys)
 - Greek: [skouriasmeno](https://github.com/devlocalhost/skouriasmeno)
+- Thai: [sanim (สนิม)](https://github.com/korewaChino/sanim)
 
 ## un grand merci
 
