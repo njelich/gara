@@ -67,7 +67,21 @@ fn replace_ident(ident: Ident) -> Option<TokenTree> {
         "vers" => "into",
         "vrai" => "true",
         "énumération" => "enum",
-
+        "Groupe" => "Group",
+        "Identifiant" => "Ident",
+        "FluxDeJetons" => "TokenStream",
+        "ArbreDeJetons" => "TokenTree",
+        "vers_chaine" => "to_string",
+        "en_tant_que_chaine" => "as_str",
+        "portée" => "span",
+        "Tableau" => "Vec",
+        "flux" => "stream",
+        "pousser" => "push",
+        "étendre" => "extend",
+        "délimiteur" => "delimiter",
+        "Ponctuation" => "Punct",
+        "Litéral" => "Literal",
+        "macro_procédurale" => "proc_macro",
         _ => &ident_str,
     };
 
