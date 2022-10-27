@@ -1,10 +1,9 @@
-rouille_compilogenese::rouille! {
-    utilisons macro_procédurale::{Groupe, Identifiant, FluxDeJetons, ArbreDeJetons};
+use proc_macro::{Group, Ident, TokenStream, TokenTree};
 
-    fonction remplacer_identifiant(identifiant: Identifiant) -> PeutÊtre<ArbreDeJetons> {
-        soit identifiant_chaine = identifiant.vers_chaine();
+fn replace_ident(ident: Ident) -> Option<TokenTree> {
+    let ident_str = ident.to_string();
 
-    let nouvelle_chaine = match identifiant_chaine.en_tant_que_chaine() {
+    let new_str = match ident_str.as_str() {
         "Arf" => "Err",
         "Bien" => "Ok",
         "Chaine" => "String",
@@ -83,45 +82,44 @@ rouille_compilogenese::rouille! {
         "Ponctuation" => "Punct",
         "Litéral" => "Literal",
         "macro_procédurale" => "proc_macro",
-        _ => &identifiant_chaine,
+        _ => &ident_str,
     };
 
-    let nouvel_identifiant = Ident::new(nouvelle_chaine, identifiant.span());
-    Some(TokenTree::Ident(nouvel_identifiant))
+    let new_ident = Ident::new(new_str, ident.span());
+    Some(TokenTree::Ident(new_ident))
 }
 
-    fonction remplacer_arbre(jeton: ArbreDeJetons, sortie: &mutable Tableau<ArbreDeJetons>) {
-        selon jeton {
-            ArbreDeJetons::Groupe(groupe) => {
-                soit mutable groupe_elements = Tableau::nouveau();
-                remplacer_le_flux(groupe.flux(), &mutable groupe_elements);
-                soit mutable nouveau_flux = FluxDeJetons::nouveau();
-                nouveau_flux.étendre(groupe_elements);
-                sortie.pousser(ArbreDeJetons::Groupe(Groupe::nouveau(groupe.délimiteur(), nouveau_flux)));
-            }
-            ArbreDeJetons::Identifiant(identifiant) => {
-                si soit Quelque(identifiant) = remplacer_identifiant(identifiant) {
-                    sortie.pousser(identifiant);
-                }
-            }
-            ArbreDeJetons::Ponctuation(..) | ArbreDeJetons::Litéral(..) => {
-                sortie.pousser(jeton);
+fn replace_tree(tok: TokenTree, out: &mut Vec<TokenTree>) {
+    match tok {
+        TokenTree::Group(group) => {
+            let mut group_elem = Vec::new();
+            replace_stream(group.stream(), &mut group_elem);
+            let mut new_stream = TokenStream::new();
+            new_stream.extend(group_elem);
+            out.push(TokenTree::Group(Group::new(group.delimiter(), new_stream)));
+        }
+        TokenTree::Ident(ident) => {
+            if let Some(ident) = replace_ident(ident) {
+                out.push(ident);
             }
         }
-    }
-
-    fonction remplacer_le_flux(arbre_de_jetons: FluxDeJetons, sortie: &mutable Tableau<ArbreDeJetons>) {
-        pour jeton de arbre_de_jetons {
-            remplacer_arbre(jeton, sortie)
+        TokenTree::Punct(..) | TokenTree::Literal(..) => {
+            out.push(tok);
         }
     }
+}
 
-    #[macro_procédurale]
-    public fonction rouille(élément: FluxDeJetons) -> FluxDeJetons {
-        soit mutable retourné = Tableau::nouveau();
-        remplacer_le_flux(élément, &mutable retourné);
-        soit mutable sortie = FluxDeJetons::nouveau();
-        sortie.étendre(retourné);
-        sortie
+fn replace_stream(ts: TokenStream, out: &mut Vec<TokenTree>) {
+    for tok in ts {
+        replace_tree(tok, out)
     }
+}
+
+#[proc_macro]
+pub fn rouille(item: TokenStream) -> TokenStream {
+    let mut returned = Vec::new();
+    replace_stream(item, &mut returned);
+    let mut out = TokenStream::new();
+    out.extend(returned);
+    out
 }
