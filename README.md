@@ -126,6 +126,7 @@ Please don't introduce swear words, though: we will not excuse your French.
 - Thai: [sanim (สนิม)](https://github.com/korewaChino/sanim)
 - Swiss: [roeschti](https://github.com/Georg-code/roeschti)
 - Swedish: [rost](https://github.com/vojd/rost/)
+- Croatian: [hrđa](https://github.com/njelich/hrdja)
 
 ## un grand merci
 
