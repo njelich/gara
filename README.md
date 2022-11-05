@@ -1,58 +1,56 @@
-# rouille
+# hrđa
 
-![](https://github.com/bnjbvr/rouille/raw/principale/logo.jpeg)
+![](https://github.com/njelich/hrdja/raw/main/logo.jpeg)
 
-Aren't you _le tired_ from writing Rust programs in English? Do you like saying
-"merde" a lot? Would you like to try something different, in an exotic and
-funny-sounding language? Would you want to bring some French touch to your
+Aren't you _umorni_ from writing Rust programs in English? Do you like saying
+"racija" a lot? Would you like to try something different, in an exotic and
+funny-sounding language? Would you want to bring some Croatian touch to your
 programs?
 
-**rouille** (French for _Rust_) is here to save your day, as it allows you to
-write Rust programs in French, using French keywords, French function names,
-French idioms.
+**hrđa** (Croatian for _Rust_) is here to save your day, as it allows you to
+write Rust programs in Croatian, using Croatian keywords, Croatian function names,
+Croatian idioms.
 
 This has been designed to be used as the official programming language to
-develop the future French sovereign operating system. 
+develop the future Croatian sovereign operating system.
 
-If you're from the French or any other governement with French as an official 
+If you're from the Croatian or any other governement with Croatian as an official
 language: I will be awaiting your donations on
 [liberapay](https://liberapay.com/bnjbvr/).
 
-You're from Quebec (or elsewhere) and don't feel at ease using only French words? 
-
 Don't worry!
-French Rust is fully compatible with English-Rust, so you can mix both at your
+Croatian Rust is fully compatible with English Rust, so you can mix both at your
 convenience.
 
-Here's an example of what can be achieved with Rouille:
+Here's an example of what can be achieved with Hrđa:
 
-### trait and impl (aka convention et réalisation)
+### trait and impl (aka svojstvo et ispuna)
 
 ```rust
-rouille::rouille! {
-    utilisons std::collections::Dictionnaire comme Dico;
+hrđa::hrđa! {
+    koristi std::collections::KartaSažetaka kao Rječnik;
 
-    convention CléValeur {
-        fonction écrire(&soi, clé: Chaine, valeur: Chaine);
-        fonction lire(&soi, clé: Chaine) -> PeutÊtre<&Chaine>;
+    svojstvo KljučVrijednost {
+        fn napiši(&suština, ključ: ZnakovniNiz, valeur: ZnakovniNiz);
+        fn dohvati(&suština, ključ: ZnakovniNiz) -> Rezultat<Neobavezno<&ZnakovniNiz>, ZnakovniNiz>;
     }
 
-    statique mutable DICTIONNAIRE: PeutÊtre<Dico<Chaine, Chaine>> = Rien;
+    nepokretno izmjenjiv RJECNIK: Neobavezno<Rječnik<ZnakovniNiz, ZnakovniNiz>> = Nijedan;
 
-    structure Concrète;
+    građa GPKrk;
 
-    réalisation CléValeur pour Concrète {
-        fonction écrire(&soi, clé: Chaine, valeur: Chaine) {
-            soit dico = dangereux {
-                DICTIONNAIRE.prendre_ou_insérer_avec(Défaut::défaut)
+    ispuna KljučVrijednost za GPKrk {
+        fn napiši(&suština, ključ: ZnakovniNiz, valeur: ZnakovniNiz) {
+            dopusti rjecnik = opasno {
+                RJECNIK.dohvati_ili_ubaci_uz(Podrazumijevano::podrazumijevano)
             };
-            dico.insérer(clé, valeur);
+            rjecnik.ubaci(ključ, valeur);
         }
-        fonction lire(&soi, clé: Chaine) -> Résultat<PeutÊtre<&Chaine>, Chaine> {
-            si soit Quelque(dico) = dangereux { DICTIONNAIRE.en_réf() } {
-                Bien(dico.lire(&clé))
-            } sinon {
-                Arf("fetchez le dico".vers())
+        fn dohvati(&suština, ključ: ZnakovniNiz) -> Rezultat<Neobavezno<&ZnakovniNiz>, ZnakovniNiz> {
+            ako dopusti Neki(rjecnik) = opasno { RJECNIK.ko_upuć() } {
+                URedu(rjecnik.dohvati(&ključ))
+            } inače {
+                Kiks("dohvati rjecnik".pretvori())
             }
         }
     }
@@ -62,36 +60,18 @@ rouille::rouille! {
 ### Support for regional languages
 
 ```rust
-#[légal(code_inaccessible)]
-fonction secondaire() {
-    merde!("oh non"); // for the true French experience
-    calisse!("tabarnak"); // for friends speaking fr-ca
-    oups!("fetchez la vache"); // in SFW contexts
+#[dopusti(izvor_nedostupan)]
+fn sekundarni() {
+    panika!("o ne"); // for the usual Croatian experience
+    razlaz!("gasi to"); // a student party broken up
+    racija!("nemoj, Milane"); // time to give a cut of the rakija
 }
 ```
 
 ### Other examples
 
 See the [examples](./examples/src/main.rs) to get a rough sense of the whole
-syntax. Voilà, that's it.
-
-## les contributions
-
-First of all, _merci beaucoup_ for considering participating to this joke, the
-French government will thank you later! Feel free to throw in a few identifiers
-here and there, and open a pull-request against the `principale` (French for
-`main`) branch.
-
-Please don't introduce swear words, though: we will not excuse your French.
-
-## but why would you do zat
-
-- horsin around
-- playing with raw proc macros
-- making a bit of fun about programming languages that do this seriously,
-  though I can see their utility.
-- winking at [Marcel](https://github.com/brouberol/marcel)
-- c'est chic
+syntax.
 
 ## Other languages
 
@@ -126,13 +106,3 @@ Please don't introduce swear words, though: we will not excuse your French.
 - Thai: [sanim (สนิม)](https://github.com/korewaChino/sanim)
 - Swiss: [roeschti](https://github.com/Georg-code/roeschti)
 - Swedish: [rost](https://github.com/vojd/rost/)
-
-## un grand merci
-
-- [@VentGrey](https://twitter.com/VentGrey) for making a logo!
-
-## la license
-
-[License Publique Rien à Branler](http://sam.zoy.org/lprab/),
-_le_ official translation of the [WTFPL](http://www.wtfpl.net/)
-by the same author.

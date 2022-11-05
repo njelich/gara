@@ -1,85 +1,85 @@
-rouille::rouille! {
-    externe cagette rouille;
+hrđa::hrđa! {
+    vanjski kištra hrđa;
 
-    utilisons std::collections::Dictionnaire comme Dico;
+    koristi std::collections::KartaSažetaka kao Rječnik;
 
-    convention CléValeur {
-        fonction écrire(&soi, clé: Chaine, valeur: Chaine);
-        fonction lire(&soi, clé: Chaine) -> Résultat<PeutÊtre<&Chaine>, Chaine>;
+    svojstvo KljučVrijednost {
+        fn napiši(&suština, ključ: ZnakovniNiz, valeur: ZnakovniNiz);
+        fn dohvati(&suština, ključ: ZnakovniNiz) -> Rezultat<Neobavezno<&ZnakovniNiz>, ZnakovniNiz>;
     }
 
-    statique mutable DICTIONNAIRE: PeutÊtre<Dico<Chaine, Chaine>> = Rien;
+    nepokretno izmjenjiv RJECNIK: Neobavezno<Rječnik<ZnakovniNiz, ZnakovniNiz>> = Nijedan;
 
-    structure Concrète;
+    građa GPKrk;
 
-    réalisation CléValeur pour Concrète {
-        fonction écrire(&soi, clé: Chaine, valeur: Chaine) {
-            soit dico = dangereux {
-                DICTIONNAIRE.prendre_ou_insérer_avec(Défaut::défaut)
+    ispuna KljučVrijednost za GPKrk {
+        fn napiši(&suština, ključ: ZnakovniNiz, valeur: ZnakovniNiz) {
+            dopusti rjecnik = opasno {
+                RJECNIK.dohvati_ili_ubaci_uz(Podrazumijevano::podrazumijevano)
             };
-            dico.insérer(clé, valeur);
+            rjecnik.ubaci(ključ, valeur);
         }
-        fonction lire(&soi, clé: Chaine) -> Résultat<PeutÊtre<&Chaine>, Chaine> {
-            si soit Quelque(dico) = dangereux { DICTIONNAIRE.en_réf() } {
-                Bien(dico.lire(&clé))
-            } sinon {
-                Arf("fetchez le dico".vers())
+        fn dohvati(&suština, ključ: ZnakovniNiz) -> Rezultat<Neobavezno<&ZnakovniNiz>, ZnakovniNiz> {
+            ako dopusti Neki(rjecnik) = opasno { RJECNIK.ko_upuć() } {
+                URedu(rjecnik.dohvati(&ključ))
+            } inače {
+                Kiks("dohvati rjecnik".pretvori())
             }
         }
     }
 
-    public(cagette) fonction peut_etre(i: u32) -> PeutÊtre<Résultat<u32, Chaine>> {
-        si i % 2 == 1 {
-            si i == 42 {
-                Quelque(Arf(Chaine::depuis("merde")))
-            } sinon {
-                Quelque(Bien(33))
+    javni(kištra) fn može_biti(i: u32) -> Neobavezno<Rezultat<u32, ZnakovniNiz>> {
+        ako i % 2 == 1 {
+            ako i == 42 {
+                Neki(Kiks(ZnakovniNiz::iz("kaos")))
+            } inače {
+                Neki(URedu(33))
             }
-        } sinon {
-            Rien
+        } inače {
+            Nijedan
         }
     }
 
-    asynchrone fonction exemple() {
+    asinhron fn primjer() {
     }
 
-    asynchrone fonction exemple2() {
-        exemple().attend;
+    asinhron fn primjer2() {
+        primjer().isčekuj;
     }
 
-    fonction principale() {
-        soit mutable x = 31;
+    fn glavni() {
+        dopusti izmjenjiv x = 31;
 
-        selon x {
+        spari x {
             42 => {
-                affiche!("omelette du fromage")
+                ispišred!("špek")
             }
-            _ => affiche!("voila")
+            _ => ispišred!("divno")
         }
 
-        pour i de 0..10 {
-            soit val = boucle {
-                arrête i;
+        za i u 0..10 {
+            dopusti val = petlja {
+                prekini i;
             };
 
-            tant que x < val {
+            dok kaj x < val {
                 x += 1;
             }
 
-            x = si soit Quelque(resultat) = peut_etre(i) {
-                resultat.déballer()
-            } sinon {
+            x = ako dopusti Neki(resultat) = može_biti(i) {
+                resultat.odmotaj()
+            } inače {
                 12
             };
         }
 
-        //secondaire();
+        //sekundarni();
     }
 
-    #[légal(code_inaccessible)]
-    fonction secondaire() {
-        merde!("oh non"); // for the true French experience
-        calisse!("tabernacle"); // for friends speaking fr-ca
-        oups!("fetchez la vache"); // in SFW contexts
+    #[dopusti(izvor_nedostupan)]
+    fn sekundarni() {
+        panika!("o ne"); // for the usual Croatian experience
+        razlaz!("gasi to"); // a student party broken up
+        racija!("nemoj, Milane"); // time to give a cut of the rakija
     }
 }

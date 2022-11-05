@@ -2,14 +2,14 @@ name: Rouille
 
 on:
   push:
-    branches: [ principale ]
+    branches: [glavni]
   pull_request:
-    branches: [ principale ]
+    branches: [glavni]
 
 jobs:
   ic:
     env:
-        RUST_BACKTRACE: 1
+      RUST_BACKTRACE: 1
     runs-on: ubuntu-latest
     strategy:
       matrix:
